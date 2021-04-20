@@ -24,7 +24,7 @@ function startQuiz() {
   // un-hide questions section
   questionsEl.setAttribute("class", " ");
   // start timer
-  var timeInterval = setInterval(function(){
+  timerId = setInterval(function(){
     clockTick();
   }, 1000);
   // show starting time
@@ -112,9 +112,11 @@ function questionClick(answerChoice) {
 
 function quizEnd() {
   // stop timer
-  clearInterval(time);
+  clearInterval(timerId);
 
   // show end screen
+  var endScreenEl = document.getElementById("end-screen");
+  endScreenEl.setAttribute("class", " ");
   // show final score
 
   // hide questions section
@@ -128,12 +130,14 @@ function clockTick() {
   // check if user ran out of time
   if(time <= 0)
     quizEnd();
+  
 }
 
 function saveHighscore() {
   // get value of input box
-
+  var initials = initialsEl.value.toUpperCase();
   // make sure value wasn't empty
+  if(initials != " "){
     // get saved scores from localstorage, or if not any, set to empty array
 
     // format new score object for current user
@@ -141,6 +145,7 @@ function saveHighscore() {
     // save to localstorage
 
     // redirect to next page
+  }
 }
 
 function checkForEnter(event) {
