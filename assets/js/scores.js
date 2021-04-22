@@ -2,6 +2,10 @@ function printHighscores() {
   // either get scores from localstorage or set to empty array
   var highScores = JSON.parse(localStorage.getItem("highscores"));
   if(highScores != null){
+    // (optional) sort highscores by score property in descending order
+    highScores.sort(function(a, b) {
+      return parseInt(b.score) - parseInt(a.score);
+    });
     // for each score
     for(var i = 0; i < highScores.length; i++){
       // create li tag for each high score
@@ -10,12 +14,13 @@ function printHighscores() {
       // display on page
       document.getElementById("highscores").appendChild(scoreLi);
     }
-    // (optional) sort highscores by score property in descending order
+    
   }
   else{
     var temp = document.getElementById("highscores");
     temp.textContent = "NO HIGH SCORES";     
   }
+  
     
 }
 
