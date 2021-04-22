@@ -67,10 +67,6 @@ function getQuestion() {
   });
 }
 
-function test(){
-  console.log('test');
-}
-
 function questionClick(answerChoice) {
   console.log("answer: " + questions[currentQuestionIndex].answer);
   console.log("choice: " + answerChoice.textContent);
@@ -97,9 +93,10 @@ function questionClick(answerChoice) {
   setInterval(function(){
     feedbackEl.setAttribute("class", "feedback hide");
   }, 1000);
+
   // move to next question
-  
   currentQuestionIndex++;
+
   // check if we've run out of questions
   if(currentQuestionIndex === questions.length)
     // quizEnd
@@ -117,7 +114,10 @@ function quizEnd() {
   // show end screen
   var endScreenEl = document.getElementById("end-screen");
   endScreenEl.setAttribute("class", " ");
+
   // show final score
+  var finalScoreEl = document.getElementById("final-score");
+  finalScoreEl.textContent = time;
 
   // hide questions section
   questionsEl.setAttribute("class", "hide");
@@ -127,6 +127,7 @@ function clockTick() {
   // update time
   time--;
   timerEl.textContent = time;
+
   // check if user ran out of time
   if(time <= 0)
     quizEnd();
@@ -137,14 +138,27 @@ function saveHighscore() {
   // get value of input box
   var initials = initialsEl.value.toUpperCase();
   // make sure value wasn't empty
-  if(initials != " "){
+  if(initials === "" || initials.length > 3){
+    alert("Input must be no more than 3 characters");
+    return;
+  }
+  else{
     // get saved scores from localstorage, or if not any, set to empty array
-
+    var highscores;
+    if(JSON.parse(localStorage.getItem("highscores")) != null)
+      highscores = JSON.parse(window.localStorage.getItem("highscores"));
+    else
+      highscores = [];
     // format new score object for current user
-
+    var newScore = {
+      initials: initials,
+      score: time
+    };
+    highscores.push(newScore);
     // save to localstorage
-
+    localStorage.setItem("highscores", JSON.stringify(highscores));
     // redirect to next page
+    location.href = "highscores.html";
   }
 }
 
