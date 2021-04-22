@@ -68,10 +68,7 @@ function getQuestion() {
 }
 
 function questionClick(answerChoice) {
-  console.log("answer: " + questions[currentQuestionIndex].answer);
-  console.log("choice: " + answerChoice.textContent);
-  // check if user guessed wrong
-  
+  // check if user guessed wrong  
   if(answerChoice.textContent != questions[currentQuestionIndex].answer){
     // penalize time
     time -= 10;
@@ -84,7 +81,6 @@ function questionClick(answerChoice) {
   else{
     // play "right" sound effect
     feedbackEl.textContent = "Correct";
-    
     sfxRight.play();
   }
 
@@ -92,7 +88,7 @@ function questionClick(answerChoice) {
   feedbackEl.setAttribute("class", "feedback");
   setInterval(function(){
     feedbackEl.setAttribute("class", "feedback hide");
-  }, 1000);
+  }, 500);
 
   // move to next question
   currentQuestionIndex++;
@@ -110,6 +106,7 @@ function questionClick(answerChoice) {
 function quizEnd() {
   // stop timer
   clearInterval(timerId);
+  timerEl.textContent = time;
 
   // show end screen
   var endScreenEl = document.getElementById("end-screen");
@@ -138,7 +135,11 @@ function saveHighscore() {
   // get value of input box
   var initials = initialsEl.value.toUpperCase();
   // make sure value wasn't empty
-  if(initials === "" || initials.length > 3){
+  if(initials === ""){ 
+    alert("Input mustn't be blank'");
+    return;
+  }
+  else if(initials.length > 3){
     alert("Input must be no more than 3 characters");
     return;
   }
@@ -165,8 +166,8 @@ function saveHighscore() {
 function checkForEnter(event) {
   // check if event key is enter
     // saveHighscore
-    if(event.key === '13')
-      console.log("Enter pressed");
+    if(event.keyCode === 13)
+      saveHighscore();
 }
 
 // user clicks button to submit initials

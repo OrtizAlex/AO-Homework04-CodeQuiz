@@ -1,9 +1,7 @@
 function printHighscores() {
   // either get scores from localstorage or set to empty array
   var highScores = JSON.parse(localStorage.getItem("highscores"));
-  if(highScores === null)
-    highscores = [];
-  else{
+  if(highScores != null){
     // for each score
     for(var i = 0; i < highScores.length; i++){
       // create li tag for each high score
@@ -12,17 +10,19 @@ function printHighscores() {
       // display on page
       document.getElementById("highscores").appendChild(scoreLi);
     }
+    // (optional) sort highscores by score property in descending order
   }
-  // (optional) sort highscores by score property in descending order
-
-  
-  
+  else{
+    var temp = document.getElementById("highscores");
+    temp.textContent = "NO HIGH SCORES";     
+  }
+    
 }
 
 function clearHighscores() {
   // (and reload)
   localStorage.removeItem("highscores");
-  location.reload(true);
+  location.reload();
 }
 
 // attach clear event to clear score button
