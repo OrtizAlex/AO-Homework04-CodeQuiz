@@ -31,4 +31,4 @@ THEN I can save my initials and my score
 ![Password Generator Screenshot](./Screenshot.png)
 
 ### Link to Live Page
-https://ortizalex.github.io/AO-Homework04-CodeQuiz/
+https://ortizalex.github.io/Code-Quiz/
